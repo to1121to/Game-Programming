@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
-    void onCollisionEnter2D(Collision2D col)
-	{
-        Debug.Log("ASDA");
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-            SceneManager.LoadScene(1, LoadSceneMode.Additive);
-        //}
-	}
+    public string nextScene;
+    public float nextx;
+    private void Start()
+    {
+        if (this.gameObject.name == "DoorToAlpha")
+        {
+            nextScene = "Alpha";
+        }
+        else if (this.gameObject.name == "DoorToBeta")
+        {
+            nextScene = "Beta";
+        }
+    }
 }

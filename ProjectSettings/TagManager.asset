@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Door
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -51,4 +52,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1272921629
+    locked: 0
+  - name: Mask
+    uniqueID: 3976339265
     locked: 0
