@@ -40,7 +40,11 @@ public class PlayerController : MonoBehaviour
         currentScene = SceneManager.GetActiveScene ();
         facingLeft = true;
         onGround = false;
+<<<<<<< HEAD
         onDoor = true;
+=======
+        onDoor = false;
+>>>>>>> 7f8f8a6410aa039d683d47e63d3d769721799360
         onItem = false;
         GotItem = new int[8];
         for(int i = 0; i < 8; i++)
@@ -125,6 +129,7 @@ public class PlayerController : MonoBehaviour
             onItem = false;
         }
     }
+<<<<<<< HEAD
     private void OnCollisionStay2D(Collision2D col)
     {
         if(col.gameObject.tag == "Ground")
@@ -132,4 +137,6 @@ public class PlayerController : MonoBehaviour
             onGround = true;
         }
     }
+=======
+>>>>>>> 7f8f8a6410aa039d683d47e63d3d769721799360
 }
