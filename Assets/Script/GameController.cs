@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     GameObject[] ShowItem;
     public Sprite[] ItemImage;
     GameObject CurrentPlayer;
+    float window_size;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,7 @@ public class GameController : MonoBehaviour
             }
         }
         ShowItem = new GameObject[8];
+        window_size = Screen.width;
     }
 
     // Update is called once per frame
@@ -97,17 +99,22 @@ public class GameController : MonoBehaviour
         {
             SceneChangeMask.GetComponent<RectTransform>().localScale += new Vector3(0.2f, 0.2f);
             //SceneChangeMask.GetComponent<RectTransform>().position = gameObject.transform.position;
-            if (SceneChangeMask.GetComponent<RectTransform>().localScale.x >= 12)
+            if (SceneChangeMask.GetComponent<RectTransform>().sizeDelta.x * SceneChangeMask.GetComponent<RectTransform>().localScale.x >= window_size * 2)
             {
                 SceneChangeAnimationFlag2 = false;
+                SceneChangeCanvas.SetActive(false);
             }
         }
     }
     public void ChangeScene(string SceneName)
     {
-        NextScene = SceneName;
-        SceneChangeAnimationFlag = true;
-        SetMaskPosition(CurrentPlayer);
+        if(!SceneChangeAnimationFlag2)
+        {
+            NextScene = SceneName;
+            SceneChangeCanvas.SetActive(true);
+            SceneChangeAnimationFlag = true;
+            SetMaskPosition(CurrentPlayer);
+        }
     }
     void SetMaskPosition(GameObject player)
     {
