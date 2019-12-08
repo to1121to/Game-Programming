@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Alpha.unity
+- path: Assets/Scenes/CorridorA.unity
   isLoaded: 1
   isActive: 1
