@@ -13,22 +13,22 @@ public class PlayerController : MonoBehaviour
     //private Collision coll;
 
     bool facingLeft;
+    Transform groundCheck;
+    float groundRadius;
     bool onGround;
-    bool onDoor;
-    bool onItem;
+    public LayerMask groundLayer;
 
-    GameObject CurrentItem;
-    public int[] GotItem;
     Animator anim;
 
     Scene currentScene;
+
+    public bool Event;
 
     string sceneName;
     public float nextx;
 
     bool SceneChangeFlag;
     GameController Game;
-
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -40,34 +40,17 @@ public class PlayerController : MonoBehaviour
         currentScene = SceneManager.GetActiveScene ();
         facingLeft = true;
         onGround = false;
-        onDoor = true;
-        onItem = false;
-        GotItem = new int[8];
-        for(int i = 0; i < 8; i++)
-        {
-            GotItem[i] = 0;
-        }
+        groundCheck = transform.Find("GroundCheck");
+        groundRadius = 0.01f;
+        Event = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if(Input.GetButtonDown("Jump")){
             jump = true;
         } 
-        if(Input.GetKeyDown(KeyCode.W) && onDoor)
-        {
-            Game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-            Game.ChangeScene(sceneName);
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (Input.GetKeyDown(KeyCode.W) && onItem)
-        {
-            GotItem[CurrentItem.gameObject.GetComponent<ItemController>().ItemID]++;
-            Destroy(CurrentItem);
-        }
-        
     }
 
     void FixedUpdate()
@@ -75,8 +58,8 @@ public class PlayerController : MonoBehaviour
         movingSpeed = Input.GetAxis("Horizontal");
         Move(movingSpeed, jump);
         jump = false;
-        onDoor = false;
-        onGround = false;
+        onGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        Debug.Log(Event);
     }
 
     void Move(float MovingSpeed, bool jump)
@@ -102,34 +85,5 @@ public class PlayerController : MonoBehaviour
 		Vector3 characterScale = transform.localScale;
 		characterScale.x *= -1;
 		transform.localScale = characterScale;
-    }
-
-    private void OnTriggerStay2D(Collider2D col)
-	{
-        if(col.tag == "Door")
-        {
-            onDoor = true;
-            sceneName = col.GetComponent<DoorController>().nextScene;
-            nextx = col.GetComponent<DoorController>().nextx;
-        }
-        else if(col.tag == "Item")
-        {
-            CurrentItem = col.gameObject;
-            onItem = true;
-        }
-	}
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.tag == "Item")
-        {
-            onItem = false;
-        }
-    }
-    private void OnCollisionStay2D(Collision2D col)
-    {
-        if(col.gameObject.tag == "Ground")
-        {
-            onGround = true;
-        }
     }
 }

@@ -1,0 +1,14 @@
+{
+  "ItemList": [
+    {
+      "ItemID": 0,
+      "ItemName": "艾娜的工作證",
+      "ItemInfo": "可以打開研究室大部分的門的證明"
+    },
+    {
+      "ItemID": 1,
+      "ItemName": "研究資料的資料夾",
+      "ItemInfo": "可以用來管理研究資料的資料夾"
+    }
+  ]
+}

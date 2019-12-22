@@ -7,6 +7,14 @@ TagManager:
   - Ground
   - Door
   - Item
+  - SceneChangeCanvas
+  - SceneChangeMask
+  - ItemCanvas
+  - ItemInfo
+  - ItemName
+  - Message
+  - MessageCanvas
+  - MessageBackground
   layers:
   - Default
   - TransparentFX
@@ -17,7 +25,7 @@ TagManager:
   - 
   - 
   - Ground
-  - 
+  - UI2
   - 
   - 
   - 
@@ -55,4 +63,10 @@ TagManager:
     locked: 0
   - name: Mask
     uniqueID: 3976339265
+    locked: 0
+  - name: UIReverseMask
+    uniqueID: 3722411221
+    locked: 0
+  - name: UI
+    uniqueID: 2558681299
     locked: 0
