@@ -29,9 +29,21 @@ public class PlayerController : MonoBehaviour
 
     bool SceneChangeFlag;
     GameController Game;
+
+    static PlayerController instance;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else if (this != instance)
+        {
+            Destroy(gameObject);
+        }
     }
     // Start is called before the first frame update
     void Start()

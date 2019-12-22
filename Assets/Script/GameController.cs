@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour
     float window_width;
     float window_height;
     int SelectedItem;//選擇第幾個道具，0-7
+    public AudioClip SE;
+    AudioSource Audio;
 
     [Serializable]
     public struct EventData
@@ -126,6 +128,7 @@ public class GameController : MonoBehaviour
         MessageCanvas = GameObject.FindGameObjectWithTag("MessageCanvas");
         MessageBackground = GameObject.FindGameObjectWithTag("MessageBackground");
         MessageText = GameObject.FindGameObjectWithTag("Message");
+        Audio = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
         ItemCanvas.SetActive(false);
         MessageCanvas.SetActive(false);
@@ -417,6 +420,7 @@ public class GameController : MonoBehaviour
         EventData GetEvent = Events.EventList.Find(x => x.EventID == EventID);
         if (correct)
         {
+            Audio.PlayOneShot(SE);
             if (!GetEvent.Reinteractable)
             {
                 GetEvent.Interactable = false;

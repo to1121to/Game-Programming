@@ -65,6 +65,9 @@
     <Compile Include="Assets\ReverseMaskComponent\Scripts\ReverseMaskLayer.cs" />
     <Compile Include="Assets\ReverseMaskComponent\Scripts\ReverseMaskUtility.cs" />
     <Compile Include="Assets\Script\Collision.cs" />
+    <Compile Include="Assets\Script\Dialogue.cs" />
+    <Compile Include="Assets\Script\DialogueManager.cs" />
+    <Compile Include="Assets\Script\DialogueTrigger.cs" />
     <Compile Include="Assets\Script\DoorController.cs" />
     <Compile Include="Assets\Script\EventController.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
