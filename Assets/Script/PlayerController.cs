@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         Move(movingSpeed, jump);
         jump = false;
         onGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-        Debug.Log(Event);
+//        Debug.Log(Event);
     }
 
     void Move(float MovingSpeed, bool jump)
