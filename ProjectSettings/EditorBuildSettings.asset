@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CorridorA.unity
     guid: 2c1f32a2266f2304b9c3c9b4922f1e54
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: d000f5e12c374b743b79f1245ef3cefa
   m_configObjects: {}

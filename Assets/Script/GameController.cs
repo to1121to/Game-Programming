@@ -231,27 +231,6 @@ public class GameController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        /*if (SceneChangeAnimationFlag)
-        {
-            SceneChangeMask.GetComponent<RectTransform>().localScale -= new Vector3(0.4f, 0.4f);
-            SetMaskPosition(CurrentPlayer);
-            if (SceneChangeMask.GetComponent<RectTransform>().localScale.x <= 0)
-            {
-                SceneChangeAnimationFlag = false;
-                SceneManager.LoadScene(NextScene);
-            }
-        }
-        if (SceneChangeAnimationFlag2)
-        {
-            SceneChangeMask.GetComponent<RectTransform>().localScale += new Vector3(0.4f, 0.4f);
-            SetMaskPosition(CurrentPlayer);
-            if (SceneChangeMask.GetComponent<RectTransform>().sizeDelta.x * SceneChangeMask.GetComponent<RectTransform>().localScale.x >= window_width * 2)
-            {
-                SceneChangeAnimationFlag2 = false;
-                SceneChangeCanvas.SetActive(false);
-            }
-        }
-        //SetMaskPosition(CurrentPlayer);*/
         if (SceneChangeAnimationFlag)
         {
             var Image = SceneChangeImage.GetComponent<Image>();
@@ -287,15 +266,6 @@ public class GameController : MonoBehaviour
             //SetMaskPosition(CurrentPlayer);
         }
     }
-    /*void SetMaskPosition(GameObject player)
-    {
-        RectTransform r = SceneChangeCanvas.GetComponent<RectTransform>();
-        Vector2 screenPos = Camera.main.WorldToViewportPoint(player.transform.position);
-        Vector2 viewPos = (screenPos - r.pivot) * 2;
-        float width = r.rect.width / 2;
-        float height = r.rect.height / 2;
-        SceneChangeMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(viewPos.x * width, viewPos.y * height);
-    }*/
     void SetItemCanvas()
     {
         window_width = Screen.width;
