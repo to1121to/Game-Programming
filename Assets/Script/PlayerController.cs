@@ -98,4 +98,12 @@ public class PlayerController : MonoBehaviour
 		characterScale.x *= -1;
 		transform.localScale = characterScale;
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        }
+    }
 }
