@@ -70,11 +70,17 @@
 			"Message2": [],
 			"SelectionOrNot": true,
 			"SelectionMessage": ["是", "否"],
-			"EventAfterSlection": [5, -1],
+			"EventAfterSlection": [-2, -1],
 			"ItemAmount": 0,
 			"ItemID": [],
 			"LabAmount": 0,
 			"LabID": []
+		},
+		{
+			"EventID": -2,
+			"Message": [],
+			"NextScene": "CorridorA",
+			"Nextx": 0
 		}
 	]
 }

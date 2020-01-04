@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
     {
         //coll = GetComponent<Collision>();
         currentScene = SceneManager.GetActiveScene ();
+        Game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+
         facingLeft = true;
         onGround = false;
         groundCheck = transform.Find("GroundCheck");
@@ -62,13 +64,21 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetButtonDown("Jump")){
             jump = true;
-        } 
+        }
+        if (Game.Moveable())
+        {
+            movingSpeed = Input.GetAxis("Horizontal");
+        }
+        else
+        {
+            movingSpeed = 0;
+        }
     }
 
     void FixedUpdate()
     {
-        movingSpeed = Input.GetAxis("Horizontal");
         Move(movingSpeed, jump);
+            
         jump = false;
         onGround = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 //        Debug.Log(Event);
@@ -103,7 +113,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
     }
 }

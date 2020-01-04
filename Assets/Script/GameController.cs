@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     string NextScene;
     public float nextx;
 
-    GameObject SceneChangeMask;
+    GameObject SceneChangeImage;
     GameObject SceneChangeCanvas;
 
     GameObject MessageCanvas;
@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     int SelectedSelection;
     int TotalSelections;
     public GameObject SelectionButton;
+    GameObject MessageSelectFrame;
 
     public GameObject Player;//player原型
     public GameObject ItemBack;//道具格原型
@@ -70,6 +71,8 @@ public class GameController : MonoBehaviour
         public int[] ItemID;
         public int LabAmount;
         public int[] LabID;
+        public string NextScene;
+        public int Nextx;
     }
     [Serializable]
     public struct EventArray
@@ -133,33 +136,7 @@ public class GameController : MonoBehaviour
         LoadEvent();
         LoadItem();
         LoadLab();
-        ItemCanvas = GameObject.FindGameObjectWithTag("ItemCanvas");
-        ItemInfo = GameObject.FindGameObjectWithTag("ItemInfo");
-        ItemName = GameObject.FindGameObjectWithTag("ItemName");
-        MessageCanvas = GameObject.FindGameObjectWithTag("MessageCanvas");
-        MessageBackground = GameObject.FindGameObjectWithTag("MessageBackground");
-        MessageText = GameObject.FindGameObjectWithTag("Message");
-        Audio = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
-        ItemCanvas.SetActive(false);
-        MessageCanvas.SetActive(false);
-        ItemFlag = false;
-        LabMode = false;
-        MessageFlag = false;
-        SceneChangeAnimationFlag = false;
-        SceneChangeAnimationFlag2 = true;
-        CurrentPlayer = GameObject.FindGameObjectWithTag("Player");
-        SceneChangeCanvas = GameObject.FindGameObjectWithTag("SceneChangeCanvas");
-        SceneChangeMask = GameObject.FindGameObjectWithTag("SceneChangeMask");
-
-        if (CurrentPlayer == null)
-        {
-            CurrentPlayer = Instantiate(Player, new Vector2(0f, -1.89f), Quaternion.identity);
-        }
-        else
-        {
-            CurrentPlayer.transform.position = new Vector2(nextx, -1.89f);
-        }
         ShowItem = new GameObject[8];
         ShowItemID = new int[8];
         SelectedItem = 0;
@@ -182,14 +159,9 @@ public class GameController : MonoBehaviour
             EventTriggered.Add(false);
         }
         MessageArray = new List<string>();
-<<<<<<< HEAD
         SelectionArray = new List<string>();
         SelectionResult = new List<int>();
         Selections = new List<GameObject>();
-=======
-        SetItemCanvas();
-        SetMessageCanvas();
->>>>>>> 59f1d0dcf9a59ea248a29435010df9bbaabf35a2
     }
 
     // Update is called once per frame
@@ -269,10 +241,19 @@ public class GameController : MonoBehaviour
             SetMessageCanvas();
             if (Input.GetButtonDown("Next"))
             {
-                if(MessageNow == MessageNumber - 1 && SelectionFlag)
+                if (MessageNow == MessageNumber - 1 && SelectionFlag)
                 {
                     MessageCanvasControl();
-                    EventTrigger(SelectionResult[SelectedSelection], true);
+                    if(SelectionResult[SelectedSelection] >= -1)
+                    {
+                        EventTrigger(SelectionResult[SelectedSelection], true);
+                    }
+                    else
+                    {
+                        EventData GetEvent = Events.EventList.Find(x => x.EventID == SelectionResult[SelectedSelection]);
+                        nextx = GetEvent.Nextx;
+                        ChangeScene(GetEvent.NextScene);
+                    }
                 }
                 else
                 {
@@ -282,7 +263,7 @@ public class GameController : MonoBehaviour
             }
             if (Input.GetButtonDown("Right"))
             {
-                if(SelectedSelection == TotalSelections - 1)
+                if (SelectedSelection == TotalSelections - 1)
                 {
                     SelectedSelection = 0;
                 }
@@ -306,32 +287,13 @@ public class GameController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        /*if (SceneChangeAnimationFlag)
-        {
-            SceneChangeMask.GetComponent<RectTransform>().localScale -= new Vector3(0.4f, 0.4f);
-            SetMaskPosition(CurrentPlayer);
-            if (SceneChangeMask.GetComponent<RectTransform>().localScale.x <= 0)
-            {
-                SceneChangeAnimationFlag = false;
-                SceneManager.LoadScene(NextScene);
-            }
-        }
-        if (SceneChangeAnimationFlag2)
-        {
-            SceneChangeMask.GetComponent<RectTransform>().localScale += new Vector3(0.4f, 0.4f);
-            SetMaskPosition(CurrentPlayer);
-            if (SceneChangeMask.GetComponent<RectTransform>().sizeDelta.x * SceneChangeMask.GetComponent<RectTransform>().localScale.x >= window_width * 2)
-            {
-                SceneChangeAnimationFlag2 = false;
-                SceneChangeCanvas.SetActive(false);
-            }
-        }
-        //SetMaskPosition(CurrentPlayer);*/
         if (SceneChangeAnimationFlag)
         {
-            SceneChangeMask.GetComponent<RectTransform>().localScale -= new Vector3(0.4f, 0.4f);
-            SetMaskPosition(CurrentPlayer);
-            if (SceneChangeMask.GetComponent<RectTransform>().localScale.x <= 0)
+            var Image = SceneChangeImage.GetComponent<Image>();
+            var Color = Image.color;
+            Color.a += 0.05f;
+            Image.color = Color;
+            if (Image.color.a >= 1)
             {
                 SceneChangeAnimationFlag = false;
                 SceneManager.LoadScene(NextScene);
@@ -339,34 +301,26 @@ public class GameController : MonoBehaviour
         }
         if (SceneChangeAnimationFlag2)
         {
-            SceneChangeMask.GetComponent<RectTransform>().localScale += new Vector3(0.4f, 0.4f);
-            SetMaskPosition(CurrentPlayer);
-            if (SceneChangeMask.GetComponent<RectTransform>().sizeDelta.x * SceneChangeMask.GetComponent<RectTransform>().localScale.x >= window_width * 2)
+            var Image = SceneChangeImage.GetComponent<Image>();
+            var Color = Image.color;
+            Color.a -= 0.05f;
+            Image.color = Color;
+            if (Image.color.a <= 0)
             {
                 SceneChangeAnimationFlag2 = false;
                 SceneChangeCanvas.SetActive(false);
             }
         }
-        //SetMaskPosition(CurrentPlayer);
     }
+
     public void ChangeScene(string SceneName)
     {
-        if(!SceneChangeAnimationFlag2)
+        if (!SceneChangeAnimationFlag2)
         {
             NextScene = SceneName;
             SceneChangeCanvas.SetActive(true);
             SceneChangeAnimationFlag = true;
-            SetMaskPosition(CurrentPlayer);
         }
-    }
-    void SetMaskPosition(GameObject player)
-    {
-        RectTransform r = SceneChangeCanvas.GetComponent<RectTransform>();
-        Vector2 screenPos = Camera.main.WorldToViewportPoint(player.transform.position);
-        Vector2 viewPos = (screenPos - r.pivot) * 2;
-        float width = r.rect.width / 2;
-        float height = r.rect.height / 2;
-        SceneChangeMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(viewPos.x * width, viewPos.y * height);
     }
     void SetItemCanvas()
     {
@@ -380,7 +334,7 @@ public class GameController : MonoBehaviour
         rt.offsetMax = new Vector2(-1 * width, -1 * height);
         width = window_width - width * 2;
         height = window_height - height * 2;
-        for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
         {
             ShowItemID[i] = -1;
         }
@@ -420,7 +374,7 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                if(LabGotten[i + 8 * ItemPage])
+                if (LabGotten[i + 8 * ItemPage])
                 {
                     LabData GetLab = GetLabData(i + 8 * ItemPage);
                     ShowItem[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(GetLab.LabName);
@@ -428,7 +382,7 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-        if(SelectFrame == null)
+        if (SelectFrame == null)
         {
             SelectFrame = Instantiate(ItemFrame, ItemBackground.transform);
             RectTransform rt2 = SelectFrame.GetComponent<RectTransform>();
@@ -451,7 +405,7 @@ public class GameController : MonoBehaviour
         RectTransform rt4 = ItemInfo.GetComponent<RectTransform>();
         rt4.offsetMax = new Vector2(width / 12 * 11, height / 10 * 7);
         rt4.offsetMin = new Vector2(width / 12 * 5, height / 10 * 1);
-        if(ShowItemID[SelectedItem] != -1)
+        if (ShowItemID[SelectedItem] != -1)
         {
             if (!LabMode)
             {
@@ -528,15 +482,15 @@ public class GameController : MonoBehaviour
     }
     public void UseItem(int ItemID)
     {
-        if(ItemAmount[ItemID] > 0) ItemAmount[ItemID]--;
+        if (ItemAmount[ItemID] > 0) ItemAmount[ItemID]--;
     }
     void LoadEvent()
     {
         string LoadJson = File.ReadAllText(Application.streamingAssetsPath + "/Event.json");
         Events = JsonUtility.FromJson<EventArray>(LoadJson);
-        for(int i = 0; i < Events.EventList.Count; i++)
+        for (int i = 0; i < Events.EventList.Count; i++)
         {
-            for(int j = 0; j < Events.EventList[i].Message.Length; j++)
+            for (int j = 0; j < Events.EventList[i].Message.Length; j++)
             {
                 Debug.Log(Events.EventList[i].Message[j]);
             }
@@ -560,13 +514,13 @@ public class GameController : MonoBehaviour
     {
         window_width = Screen.width;
         window_height = Screen.height;
-        
+
         RectTransform rt = MessageBackground.GetComponent<RectTransform>();
         float width = window_width / 10;
         float height = window_height / 10;
         rt.offsetMin = new Vector2(width, height / 2);
         rt.offsetMax = new Vector2(-1 * width, -7 * height);
-        
+
         MessageText.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
         MessageText.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
         if (MessageNow != MessageNumber)
@@ -574,17 +528,35 @@ public class GameController : MonoBehaviour
             MessageText.GetComponent<TMPro.TextMeshProUGUI>().text = MessageArray[MessageNow];
             if (MessageNow == MessageNumber - 1 && SelectionFlag)
             {
-                for(int i = 0; i < TotalSelections; i++)
+                float smallWidth = width * 8;
+                float smallHeight = height * 2.5f;
+                float selectionWidth = smallWidth / 20;
+                float interval = (smallWidth - selectionWidth * TotalSelections) / (TotalSelections + 1);
+                for (int i = 0; i < TotalSelections; i++)
                 {
-                    if(i >= Selections.Count)
+                    if (i >= Selections.Count)
                     {
                         GameObject newSelection = Instantiate(SelectionButton, MessageBackground.transform);
                         Selections.Add(newSelection);
                     }
                     Selections[i].GetComponent<TMPro.TextMeshProUGUI>().text = SelectionArray[i];
-
+                    Selections[i].GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+                    Selections[i].GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
+                    Selections[i].GetComponent<RectTransform>().offsetMin = new Vector2(interval * (i + 1) + selectionWidth * i, smallHeight * 0.1f);
+                    Selections[i].GetComponent<RectTransform>().offsetMax = new Vector2(interval * (i + 1) + selectionWidth * (i + 1), smallHeight * 0.1f + selectionWidth);
                 }
+                if (MessageSelectFrame == null)
+                {
+                    MessageSelectFrame = Instantiate(ItemFrame, MessageBackground.transform);
+                }
+                RectTransform rt2 = MessageSelectFrame.GetComponent<RectTransform>();
+                rt2.anchorMax = new Vector2(0, 0);
+                rt2.anchorMin = new Vector2(0, 0);
+                float framewidth = smallWidth / 60;
+                rt2.offsetMin = new Vector2(interval * (SelectedSelection + 1) + selectionWidth * SelectedSelection - framewidth, smallHeight * 0.1f - framewidth);
+                rt2.offsetMax = new Vector2(interval * (SelectedSelection + 1) + selectionWidth * (SelectedSelection + 1) + framewidth, smallHeight * 0.1f + selectionWidth + framewidth);
             }
+
         }
     }
     public void ShowMessage(string[] Message, string[] Selection, int[] NextEvents)
@@ -631,6 +603,11 @@ public class GameController : MonoBehaviour
     {
         return Labs.LabList.Find(x => x.LabID == LabID);
     }
+    public bool Moveable()
+    {
+        return !MessageFlag;
+    }
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -643,13 +620,14 @@ public class GameController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.buildIndex == 0) return;
         ItemCanvas = GameObject.FindGameObjectWithTag("ItemCanvas");
         ItemInfo = GameObject.FindGameObjectWithTag("ItemInfo");
         ItemName = GameObject.FindGameObjectWithTag("ItemName");
         MessageCanvas = GameObject.FindGameObjectWithTag("MessageCanvas");
         MessageBackground = GameObject.FindGameObjectWithTag("MessageBackground");
         MessageText = GameObject.FindGameObjectWithTag("Message");
+        Audio = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+
         ItemCanvas.SetActive(false);
         MessageCanvas.SetActive(false);
         ItemFlag = false;
@@ -660,7 +638,7 @@ public class GameController : MonoBehaviour
         SelectionFlag = false;
         CurrentPlayer = GameObject.FindGameObjectWithTag("Player");
         SceneChangeCanvas = GameObject.FindGameObjectWithTag("SceneChangeCanvas");
-        SceneChangeMask = GameObject.FindGameObjectWithTag("SceneChangeMask");
+        SceneChangeImage = GameObject.FindGameObjectWithTag("SceneChangeImage");
 
         if (CurrentPlayer == null)
         {

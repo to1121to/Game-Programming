@@ -9,7 +9,7 @@ public class DoorController : MonoBehaviour
 {
     public string nextScene;
     public float nextx;
-    public int neededEvent = -1;
+    //public int neededEvent = -1;
     bool trigger;
     GameController Game;
     private void Start()
@@ -19,7 +19,7 @@ public class DoorController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Interact") && trigger)
+        /*if (Input.GetButtonDown("Interact") && trigger)
         {
             if (Game.EventExecuted(neededEvent))
             {
@@ -27,9 +27,14 @@ public class DoorController : MonoBehaviour
                 Game.nextx = nextx;
                 Game.ChangeScene(nextScene);
             }
-        }
+        }*/
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Trigger()
+    {
+        Game.nextx = nextx;
+        Game.ChangeScene(nextScene);
+    }
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
@@ -42,5 +47,5 @@ public class DoorController : MonoBehaviour
         {
             trigger = false;
         }
-    }
+    }*/
 }
