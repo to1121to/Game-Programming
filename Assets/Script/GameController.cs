@@ -117,6 +117,7 @@ public class GameController : MonoBehaviour
     int ItemPage;//顯示道具的第幾頁，尚未實作
 
     static GameController instance;
+    static bool FirstTimeSetting = false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -136,7 +137,7 @@ public class GameController : MonoBehaviour
         LoadEvent();
         LoadItem();
         LoadLab();
-
+        
         ShowItem = new GameObject[8];
         ShowItemID = new int[8];
         SelectedItem = 0;
@@ -162,6 +163,46 @@ public class GameController : MonoBehaviour
         SelectionArray = new List<string>();
         SelectionResult = new List<int>();
         Selections = new List<GameObject>();
+
+        if (!FirstTimeSetting)
+        {
+            ItemCanvas = GameObject.FindGameObjectWithTag("ItemCanvas");
+            ItemInfo = GameObject.FindGameObjectWithTag("ItemInfo");
+            ItemName = GameObject.FindGameObjectWithTag("ItemName");
+            MessageCanvas = GameObject.FindGameObjectWithTag("MessageCanvas");
+            MessageBackground = GameObject.FindGameObjectWithTag("MessageBackground");
+            MessageText = GameObject.FindGameObjectWithTag("Message");
+            Audio = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+
+            ItemCanvas.SetActive(false);
+            MessageCanvas.SetActive(false);
+            ItemFlag = false;
+            LabMode = false;
+            MessageFlag = false;
+            SceneChangeAnimationFlag = false;
+            SceneChangeAnimationFlag2 = true;
+            SelectionFlag = false;
+            CurrentPlayer = GameObject.FindGameObjectWithTag("Player");
+            SceneChangeCanvas = GameObject.FindGameObjectWithTag("SceneChangeCanvas");
+            SceneChangeImage = GameObject.FindGameObjectWithTag("SceneChangeImage");
+
+            if (CurrentPlayer == null)
+            {
+                CurrentPlayer = Instantiate(Player, new Vector2(5f, -1.89f), Quaternion.identity);
+            }
+            else
+            {
+                CurrentPlayer.transform.position = new Vector2(nextx, -1.89f);
+            }
+            SelectedItem = 0;
+            ItemPage = 0;
+            MessageNow = 0;
+            LabPageNow = 0;
+            SetItemCanvas();
+            SetMessageCanvas();
+        }
+
+        FirstTimeSetting = true;
     }
 
     // Update is called once per frame
@@ -620,6 +661,7 @@ public class GameController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (!FirstTimeSetting) return;
         ItemCanvas = GameObject.FindGameObjectWithTag("ItemCanvas");
         ItemInfo = GameObject.FindGameObjectWithTag("ItemInfo");
         ItemName = GameObject.FindGameObjectWithTag("ItemName");
