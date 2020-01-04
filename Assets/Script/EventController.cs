@@ -27,7 +27,11 @@ public class EventController : MonoBehaviour
                 if (Game.HadItem(neededItem))
                 {
                     Debug.Log(EventID);
-                    Game.EventTrigger(EventID, true);
+                    int nextEvent = Game.EventTrigger(EventID, true);
+                    if (nextEvent != -1)
+                    {
+                        EventID = nextEvent;
+                    }
                     Trigger = false;
                     if (delect) Destroy(gameObject);
                     

@@ -25,8 +25,15 @@ public class GameController : MonoBehaviour
     int MessageNow;//現在第幾句
     bool MessageFlag;
     List<string> MessageArray;//message儲存用
+    List<string> SelectionArray;
+    List<int> SelectionResult;
+    List<GameObject> Selections;
     GameObject MessageBackground;
     GameObject MessageText;
+    bool SelectionFlag;
+    int SelectedSelection;
+    int TotalSelections;
+    public GameObject SelectionButton;
 
     public GameObject Player;//player原型
     public GameObject ItemBack;//道具格原型
@@ -53,8 +60,12 @@ public class GameController : MonoBehaviour
         public int EventID;
         public bool Interactable;
         public bool Reinteractable;
+        public int EventIDAfterInteract;
         public string[] Message;
         public string[] Message2;
+        public bool SelectionOrNot;
+        public string[] SelectionMessage;
+        public int[] EventAfterSlection;
         public int ItemAmount;
         public int[] ItemID;
         public int LabAmount;
@@ -145,6 +156,9 @@ public class GameController : MonoBehaviour
             EventTriggered.Add(false);
         }
         MessageArray = new List<string>();
+        SelectionArray = new List<string>();
+        SelectionResult = new List<int>();
+        Selections = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -224,8 +238,38 @@ public class GameController : MonoBehaviour
             SetMessageCanvas();
             if (Input.GetButtonDown("Next"))
             {
-                MessageNow++;
-                if (MessageNow == MessageNumber) MessageCanvasControl();
+                if(MessageNow == MessageNumber - 1 && SelectionFlag)
+                {
+                    MessageCanvasControl();
+                    EventTrigger(SelectionResult[SelectedSelection], true);
+                }
+                else
+                {
+                    MessageNow++;
+                    if (MessageNow == MessageNumber) MessageCanvasControl();
+                }
+            }
+            if (Input.GetButtonDown("Right"))
+            {
+                if(SelectedSelection == TotalSelections - 1)
+                {
+                    SelectedSelection = 0;
+                }
+                else
+                {
+                    SelectedSelection++;
+                }
+            }
+            if (Input.GetButtonDown("Left"))
+            {
+                if (SelectedSelection == 0)
+                {
+                    SelectedSelection = TotalSelections - 1;
+                }
+                else
+                {
+                    SelectedSelection--;
+                }
             }
         }
     }
@@ -415,9 +459,11 @@ public class GameController : MonoBehaviour
         if (ItemID == -1) return true;
         return (ItemAmount[ItemID] > 0);
     }
-    public void EventTrigger(int EventID, bool correct)
+    public int EventTrigger(int EventID, bool correct)
     {
+        if (EventID == -1) return -1;
         EventData GetEvent = Events.EventList.Find(x => x.EventID == EventID);
+        int nextEvent;
         if (correct)
         {
             Audio.PlayOneShot(SE);
@@ -425,6 +471,11 @@ public class GameController : MonoBehaviour
             {
                 GetEvent.Interactable = false;
                 Events.EventList[Events.EventList.FindIndex(x => x.EventID == EventID)] = GetEvent;
+                nextEvent = -1;
+            }
+            else
+            {
+                nextEvent = GetEvent.EventIDAfterInteract;
             }
             for (int i = 0; i < GetEvent.ItemAmount; i++)
             {
@@ -434,11 +485,17 @@ public class GameController : MonoBehaviour
             {
                 LabGotten[GetEvent.LabID[i]] = true;
             }
-            ShowMessage(GetEvent.Message);
+            SelectionFlag = GetEvent.SelectionOrNot;
             EventTriggered[GetEvent.EventID] = true;
+            ShowMessage(GetEvent.Message, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
         }
-        else ShowMessage(GetEvent.Message2);
+        else
+        {
+            ShowMessage(GetEvent.Message2, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
+            nextEvent = -1;
+        }
         CurrentPlayer.GetComponent<PlayerController>().Event = false;
+        return nextEvent;
     }
     public bool EventExecuted(int EventID)
     {
@@ -488,9 +545,25 @@ public class GameController : MonoBehaviour
         
         MessageText.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
         MessageText.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
-        if(MessageNow != MessageNumber) MessageText.GetComponent<TMPro.TextMeshProUGUI>().text = MessageArray[MessageNow];
+        if (MessageNow != MessageNumber)
+        {
+            MessageText.GetComponent<TMPro.TextMeshProUGUI>().text = MessageArray[MessageNow];
+            if (MessageNow == MessageNumber - 1 && SelectionFlag)
+            {
+                for(int i = 0; i < TotalSelections; i++)
+                {
+                    if(i >= Selections.Count)
+                    {
+                        GameObject newSelection = Instantiate(SelectionButton, MessageBackground.transform);
+                        Selections.Add(newSelection);
+                    }
+                    Selections[i].GetComponent<TMPro.TextMeshProUGUI>().text = SelectionArray[i];
+
+                }
+            }
+        }
     }
-    public void ShowMessage(string[] Message)
+    public void ShowMessage(string[] Message, string[] Selection, int[] NextEvents)
     {
         MessageArray.Clear();
         for (int i = 0; i < Message.Length; i++)
@@ -498,6 +571,18 @@ public class GameController : MonoBehaviour
             MessageArray.Add(Message[i]);
         }
         MessageNumber = Message.Length;
+        if (SelectionFlag)
+        {
+            SelectionArray.Clear();
+            SelectionResult.Clear();
+            for (int i = 0; i < Selection.Length; i++)
+            {
+                SelectionArray.Add(Selection[i]);
+                SelectionResult.Add(NextEvents[i]);
+            }
+            TotalSelections = Selection.Length;
+            SelectedSelection = 0;
+        }
         MessageCanvasControl();
     }
     void MessageCanvasControl()
@@ -549,6 +634,7 @@ public class GameController : MonoBehaviour
         MessageFlag = false;
         SceneChangeAnimationFlag = false;
         SceneChangeAnimationFlag2 = true;
+        SelectionFlag = false;
         CurrentPlayer = GameObject.FindGameObjectWithTag("Player");
         SceneChangeCanvas = GameObject.FindGameObjectWithTag("SceneChangeCanvas");
         SceneChangeImage = GameObject.FindGameObjectWithTag("SceneChangeImage");
