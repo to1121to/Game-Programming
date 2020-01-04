@@ -8,13 +8,15 @@ TagManager:
   - Door
   - Item
   - SceneChangeCanvas
-  - SceneChangeMask
   - ItemCanvas
   - ItemInfo
   - ItemName
   - Message
   - MessageCanvas
   - MessageBackground
+  - SceneChangeImage
+  - SceneChangeMask
+  - Enemy
   layers:
   - Default
   - TransparentFX
