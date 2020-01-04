@@ -312,7 +312,7 @@ public class GameController : MonoBehaviour
             SetMaskPosition(CurrentPlayer);
         }
     }
-    /*void SetMaskPosition(GameObject player)
+    void SetMaskPosition(GameObject player)
     {
         RectTransform r = SceneChangeCanvas.GetComponent<RectTransform>();
         Vector2 screenPos = Camera.main.WorldToViewportPoint(player.transform.position);
@@ -320,7 +320,7 @@ public class GameController : MonoBehaviour
         float width = r.rect.width / 2;
         float height = r.rect.height / 2;
         SceneChangeMask.GetComponent<RectTransform>().anchoredPosition = new Vector2(viewPos.x * width, viewPos.y * height);
-    }*/
+    }
     void SetItemCanvas()
     {
         window_width = Screen.width;
