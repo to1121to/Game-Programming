@@ -375,54 +375,6 @@ public class GameController : MonoBehaviour
         rt.offsetMax = new Vector2(-1 * width, -1 * height);
         width = window_width - width * 2;
         height = window_height - height * 2;
-        for (int i = 0; i < 8; i++)
-        {
-            ShowItemID[i] = -1;
-        }
-        for (int i = 0; i < 8; i++)
-        {
-            int ItemCount = 0;
-            if (ShowItem[i] == null)
-            {
-                GameObject newItem = Instantiate(ItemBack, ItemBackground.transform);
-                RectTransform rt2 = newItem.GetComponent<RectTransform>();
-                rt2.anchorMax = new Vector2(0, 0);
-                rt2.anchorMin = new Vector2(0, 0);
-                rt2.offsetMax = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2 + 1)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (4 - i / 2)));
-                rt2.offsetMin = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (3 - i / 2)));
-                ShowItem[i] = newItem;
-            }
-            else
-            {
-                ShowItem[i].GetComponent<RectTransform>().offsetMax = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2 + 1)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (4 - i / 2)));
-                ShowItem[i].GetComponent<RectTransform>().offsetMin = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (3 - i / 2)));
-            }
-            if (!LabMode)
-            {
-                for (int j = 0; j < ItemClass; j++)
-                {
-                    if (ItemAmount[j] > 0)
-                    {
-                        ItemCount++;
-                        if (ItemCount > i + 8 * ItemPage && ShowItemID[i] == -1)
-                        {
-                            ItemData GetItem = GetItemData(j);
-                            ShowItem[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(GetItem.ItemName);
-                            ShowItemID[i] = j;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (LabGotten[i + 8 * ItemPage])
-                {
-                    LabData GetLab = GetLabData(i + 8 * ItemPage);
-                    ShowItem[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(GetLab.LabName);
-                    ShowItemID[i] = i + 8 * ItemPage;
-                }
-            }
-        }
         if (SelectFrame == null)
         {
             SelectFrame = Instantiate(ItemFrame, ItemBackground.transform);
@@ -440,6 +392,58 @@ public class GameController : MonoBehaviour
             rt2.offsetMax = new Vector2(width / 20 * (SelectedItem % 2 + 1) + (height / 16 * 3 * (SelectedItem % 2 + 1)) + framewidth, (height / 20 * (4 - SelectedItem / 2)) + (height / 16 * 3 * (4 - SelectedItem / 2)) + framewidth);
             rt2.offsetMin = new Vector2(width / 20 * (SelectedItem % 2 + 1) + (height / 16 * 3 * (SelectedItem % 2)) - framewidth, (height / 20 * (4 - SelectedItem / 2)) + (height / 16 * 3 * (3 - SelectedItem / 2)) - framewidth);
         }
+        for (int i = 0; i < 8; i++)
+        {
+            ShowItemID[i] = -1;
+        }
+        for (int i = 0; i < 8; i++)
+        {
+            int ItemCount = 0;
+            if (ShowItem[i] == null)
+            {
+                GameObject newItem = Instantiate(ItemBack, ItemBackground.transform);
+                RectTransform rt2 = newItem.GetComponent<RectTransform>();
+                rt2.anchorMax = new Vector2(0, 0);
+                rt2.anchorMin = new Vector2(0, 0);
+                rt2.offsetMax = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2 + 1)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (4 - i / 2)));
+                rt2.offsetMin = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (3 - i / 2)));
+                ShowItem[i] = newItem;
+                ShowItem[i].GetComponent<Image>().color = new Color32(255,255,255,0);
+            }
+            else
+            {
+                ShowItem[i].GetComponent<RectTransform>().offsetMax = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2 + 1)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (4 - i / 2)));
+                ShowItem[i].GetComponent<RectTransform>().offsetMin = new Vector2(width / 20 * (i % 2 + 1) + (height / 16 * 3 * (i % 2)), (height / 20 * (4 - i / 2)) + (height / 16 * 3 * (3 - i / 2)));
+                ShowItem[i].GetComponent<Image>().color = new Color32(255,255,255,0);
+            }
+            if (!LabMode)
+            {
+                for (int j = 0; j < ItemClass; j++)
+                {
+                    if (ItemAmount[j] > 0)
+                    {
+                        ItemCount++;
+                        if (ItemCount > i + 8 * ItemPage && ShowItemID[i] == -1)
+                        {
+                            ItemData GetItem = GetItemData(j);
+                            ShowItem[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(GetItem.ItemName);
+                            ShowItem[i].GetComponent<Image>().color = new Color32(255,255,255,255);
+                            ShowItemID[i] = j;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (LabGotten[i + 8 * ItemPage])
+                {
+                    LabData GetLab = GetLabData(i + 8 * ItemPage);
+                    ShowItem[i].GetComponent<Image>().sprite = Resources.Load<Sprite>(GetLab.LabName);
+                    ShowItem[i].GetComponent<Image>().color = new Color32(255,255,255,255);
+                    ShowItemID[i] = i + 8 * ItemPage;
+                }
+            }
+        }  
         RectTransform rt3 = ItemName.GetComponent<RectTransform>();
         rt3.offsetMax = new Vector2(width / 12 * 11, height / 10 * 9);
         rt3.offsetMin = new Vector2(width / 12 * 5, height / 10 * 7);
@@ -451,14 +455,14 @@ public class GameController : MonoBehaviour
             if (!LabMode)
             {
                 ItemData GetItem2 = GetItemData(ShowItemID[SelectedItem]);
-                ItemName.GetComponent<TMPro.TextMeshProUGUI>().text = GetItem2.ItemName;
+                ItemName.GetComponent<TMPro.TextMeshProUGUI>().text = "[" + GetItem2.ItemName + "]";
                 ItemInfo.GetComponent<TMPro.TextMeshProUGUI>().text = GetItem2.ItemInfo;
             }
             else
             {
                 LabData GetLab2 = GetLabData(ShowItemID[SelectedItem]);
                 LabPage = GetLab2.LabInfo.Length - 1;
-                ItemName.GetComponent<TMPro.TextMeshProUGUI>().text = GetLab2.LabName;
+                ItemName.GetComponent<TMPro.TextMeshProUGUI>().text = "[" + GetLab2.LabName + "]";
                 ItemInfo.GetComponent<TMPro.TextMeshProUGUI>().text = GetLab2.LabInfo[LabPageNow];
             }
         }

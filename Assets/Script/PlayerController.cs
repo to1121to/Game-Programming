@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             movingSpeed = 0;
+            jump = false;
         }
     }
 
