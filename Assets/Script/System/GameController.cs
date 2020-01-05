@@ -191,6 +191,7 @@ public class GameController : MonoBehaviour {
             SelectedItem = 0;
             ItemPage = 0;
             MessageNow = 0;
+            MessageNumber = 0;
             //LabPageNow = 0;
             SetItemCanvas ();
             SetMessageCanvas ();
@@ -258,16 +259,10 @@ public class GameController : MonoBehaviour {
         }
         else if (MessageFlag) {
             SetMessageCanvas ();
+            MessageCanvas.SetActive(true);
             if (Input.GetButtonDown ("Next")) {
                 if (MessageNow == MessageNumber - 1 && SelectionFlag) {
-                    MessageCanvasControl ();
-                    if (SelectionResult[SelectedSelection] >= -1) {
-                        EventTrigger (SelectionResult[SelectedSelection], true);
-                    } else {
-                        EventData GetEvent = Events.EventList.Find (x => x.EventID == SelectionResult[SelectedSelection]);
-                        nextx = GetEvent.Nextx;
-                        ChangeScene (GetEvent.NextScene);
-                    }
+                    EventTrigger (SelectionResult[SelectedSelection], true);
                 } else {
                     MessageNow++;
                     if (MessageNow == MessageNumber) {
@@ -429,6 +424,12 @@ public class GameController : MonoBehaviour {
         if (EventID == -1) return -1;
         EventData GetEvent = Events.EventList.Find (x => x.EventID == EventID);
         int nextEvent;
+        if(EventID < -1)
+        {
+            nextx = GetEvent.Nextx;
+            ChangeScene(GetEvent.NextScene);
+            return -1;
+        }
         if (correct) {
             Audio.PlayOneShot (SE);
             if (!GetEvent.Reinteractable) {
@@ -451,8 +452,8 @@ public class GameController : MonoBehaviour {
                     NextEvent = GetEvent.NextEvent;
                 }
             }
-            EventTriggered[GetEvent.EventID] = true;
-            ShowMessage (GetEvent.Message, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
+            if(GetEvent.EventID >= 0) EventTriggered[GetEvent.EventID] = true;
+            if(GetEvent.Message != null) ShowMessage (GetEvent.Message, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
         } else {
             ShowMessage (GetEvent.Message2, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
             nextEvent = -1;
@@ -504,7 +505,7 @@ public class GameController : MonoBehaviour {
 
         MessageText.GetComponent<RectTransform> ().offsetMin = new Vector2 (0, 0);
         MessageText.GetComponent<RectTransform> ().offsetMax = new Vector2 (0, 0);
-        if (MessageNow != MessageNumber) {
+        if (MessageNow != MessageNumber && MessageNumber != 0) {
             MessageText.GetComponent<TMPro.TextMeshProUGUI> ().text = MessageArray[MessageNow];
             if (MessageNow == MessageNumber - 1 && SelectionFlag) {
                 float smallWidth = width * 8;
@@ -537,6 +538,14 @@ public class GameController : MonoBehaviour {
     }
     public void ShowMessage (string[] Message, string[] Selection, int[] NextEvents) {
         MessageArray.Clear ();
+        if (Message.Length == 0)
+        {
+            if (NextEventFlag)
+            {
+                EventTrigger(NextEvent, true);
+            }
+            return;
+        }
         for (int i = 0; i < Message.Length; i++) {
             MessageArray.Add (Message[i]);
         }
@@ -556,7 +565,6 @@ public class GameController : MonoBehaviour {
 
     void MessageCanvasControl () {
         if (!MessageFlag) {
-            MessageCanvas.SetActive (true);
             MessageFlag = true;
         } else {
             MessageCanvas.SetActive (false);
@@ -612,6 +620,7 @@ public class GameController : MonoBehaviour {
         SelectedItem = 0;
         ItemPage = 0;
         MessageNow = 0;
+        MessageNumber = 0;
         //LabPageNow = 0;
         SetItemCanvas ();
         SetMessageCanvas ();
