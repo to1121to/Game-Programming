@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/AreaA/AmaRoom.unity
+=======
+- path: Assets/Scenes/AreaA/Library.unity
+>>>>>>> ed1cdce41a91e8fc3243d490fb8baced33763383
   isLoaded: 1
   isActive: 1
