@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
     bool SceneChangeAnimationFlag2; //開場
     string NextScene;
     public float nextx;
+    public float nexty;
 
     GameObject SceneChangeImage;
     GameObject SceneChangeCanvas;
@@ -75,7 +76,8 @@ public class GameController : MonoBehaviour {
         public int LabAmount;
         public int[] LabID;
         public string NextScene;
-        public int Nextx;
+        public float Nextx;
+        public float Nexty;
     }
 
     [Serializable]
@@ -183,10 +185,13 @@ public class GameController : MonoBehaviour {
             SceneChangeCanvas = GameObject.FindGameObjectWithTag ("SceneChangeCanvas");
             SceneChangeImage = GameObject.FindGameObjectWithTag ("SceneChangeImage");
 
+            nextx = 5.0f;
+            nexty = -2.0f;
+
             if (CurrentPlayer == null) {
-                CurrentPlayer = Instantiate (Player, new Vector2 (5f, -1.89f), Quaternion.identity);
+                CurrentPlayer = Instantiate (Player, new Vector2 (nextx, nexty), Quaternion.identity);
             } else {
-                CurrentPlayer.transform.position = new Vector2 (nextx, -1.89f);
+                CurrentPlayer.transform.position = new Vector2 (nextx, nexty);
             }
             SelectedItem = 0;
             ItemPage = 0;
@@ -433,6 +438,7 @@ public class GameController : MonoBehaviour {
         if(EventID < -1)
         {
             nextx = GetEvent.Nextx;
+            nexty = GetEvent.Nexty;
             ChangeScene(GetEvent.NextScene);
             return -1;
         }
@@ -637,7 +643,7 @@ public class GameController : MonoBehaviour {
         if (CurrentPlayer == null) {
             CurrentPlayer = Instantiate (Player, new Vector2 (5f, -1.89f), Quaternion.identity);
         } else {
-            CurrentPlayer.transform.position = new Vector2 (nextx, -1.89f);
+            CurrentPlayer.transform.position = new Vector2 (nextx, nexty);
         }
         SelectedItem = 0;
         ItemPage = 0;

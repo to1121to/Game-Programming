@@ -662,7 +662,7 @@ PrefabInstance:
     - target: {fileID: 2964283987768585574, guid: 53cb655a4843dd34fb3e1368ec1a8fb3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.8354263
+      value: -4.65
       objectReference: {fileID: 0}
     - target: {fileID: 2964283987768585574, guid: 53cb655a4843dd34fb3e1368ec1a8fb3,
         type: 3}
@@ -1905,6 +1905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextx: 0
+  nexty: 0
   SelectionButton: {fileID: 4106185017582656920, guid: a56720fe5c3d1cc4fbb50acf3ef04ff5,
     type: 3}
   Player: {fileID: 8651000249715461405, guid: 53cb655a4843dd34fb3e1368ec1a8fb3, type: 3}
