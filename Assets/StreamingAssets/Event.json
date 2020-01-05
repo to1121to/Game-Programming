@@ -119,7 +119,8 @@
 			"EventID": -2,
 			"Interactable": false,
 			"NextScene": "Corridor",
-			"Nextx": 0
+			"Nextx": 2.61,
+			"Nexty": -2
 		},
 		{
 			"EventID": 5,
@@ -141,7 +142,8 @@
 			"EventID": -3,
 			"Interactable": false,
 			"NextScene": "AmaRoom",
-			"Nextx": 0
+			"Nextx": -4.65,
+			"Nexty": -2
 		}
 	]
 }
