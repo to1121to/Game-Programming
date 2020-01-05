@@ -2,11 +2,13 @@
   "ItemList": [
     {
       "ItemID": 0,
+      "ItemIcon": "Icon/Item/icon_annas_work_permit",
       "ItemName": "艾娜的工作證",
       "ItemInfo": "可以打開研究室大部分的門的證明"
     },
     {
       "ItemID": 1,
+      "ItemIcon": "Icon/Item/icon_folder",
       "ItemName": "研究資料的資料夾",
       "ItemInfo": "可以用來管理研究資料的資料夾"
     }
