@@ -3,8 +3,8 @@
 		{
 			"EventID": 0,
 			"Interactable": true,
-			"Reinteractable": false,
-			"EventIDAfterInteract": -1,
+			"Reinteractable": true,
+			"EventIDAfterInteract": 2,
 			"Message": ["「得到 “艾娜的工作證”」", "“這樣就可以打開大部分的門了”"],
 			"Message2": [],
 			"NextEvent": 2,
