@@ -17,6 +17,7 @@ TagManager:
   - SceneChangeImage
   - SceneChangeMask
   - Enemy
+  - EventItem
   layers:
   - Default
   - TransparentFX

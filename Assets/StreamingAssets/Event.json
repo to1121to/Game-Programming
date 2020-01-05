@@ -3,7 +3,7 @@
 		{
 			"EventID": 0,
 			"Interactable": true,
-			"Reinteractable": true,
+			"Reinteractable": false,
 			"EventIDAfterInteract": 2,
 			"Message": [
 				"「得到 “艾娜的工作證”」",

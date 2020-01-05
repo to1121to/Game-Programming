@@ -583,12 +583,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextx: 0
-  SelectionButton: {fileID: 0}
+  SelectionButton: {fileID: 4106185017582656920, guid: a56720fe5c3d1cc4fbb50acf3ef04ff5,
+    type: 3}
   Player: {fileID: 8651000249715461405, guid: 53cb655a4843dd34fb3e1368ec1a8fb3, type: 3}
   ItemBack: {fileID: 846506699789682471, guid: 42a40ccc9d7c8094481383a55a355a9d, type: 3}
   ItemFrame: {fileID: 5873089197874220512, guid: 4ad6f569b7ed2e74ca1f2cb06d108ec9,
     type: 3}
-  SE: {fileID: 0}
+  SE: {fileID: 8300000, guid: e867e629d38fceb46878e485b431c58e, type: 3}
 --- !u!4 &113971967
 Transform:
   m_ObjectHideFlags: 0
@@ -987,6 +988,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
+      objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1280,6 +1286,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
+      objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1333,6 +1344,21 @@ PrefabInstance:
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580374216371030659, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: EventID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580374216371030659, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: neededItem
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580374216371030659, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: delect
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5625446066140364584, guid: 418d490f320a5714fa0c129f10f5faa3,
@@ -2789,6 +2815,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
+      objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3599,6 +3630,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
       objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}

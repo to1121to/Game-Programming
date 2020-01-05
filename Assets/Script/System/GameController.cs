@@ -191,6 +191,7 @@ public class GameController : MonoBehaviour {
             SelectedItem = 0;
             ItemPage = 0;
             MessageNow = 0;
+            MessageNumber = 0;
             //LabPageNow = 0;
             SetItemCanvas ();
             SetMessageCanvas ();
@@ -258,16 +259,10 @@ public class GameController : MonoBehaviour {
         }
         else if (MessageFlag) {
             SetMessageCanvas ();
+            MessageCanvas.SetActive(true);
             if (Input.GetButtonDown ("Next")) {
                 if (MessageNow == MessageNumber - 1 && SelectionFlag) {
-                    MessageCanvasControl ();
-                    if (SelectionResult[SelectedSelection] >= -1) {
-                        EventTrigger (SelectionResult[SelectedSelection], true);
-                    } else {
-                        EventData GetEvent = Events.EventList.Find (x => x.EventID == SelectionResult[SelectedSelection]);
-                        nextx = GetEvent.Nextx;
-                        ChangeScene (GetEvent.NextScene);
-                    }
+                    EventTrigger (SelectionResult[SelectedSelection], true);
                 } else {
                     MessageNow++;
                     if (MessageNow == MessageNumber) {
@@ -425,19 +420,29 @@ public class GameController : MonoBehaviour {
         return (ItemAmount[ItemID] > 0);
     }
     public int EventTrigger (int EventID, bool correct) {
+        bool slot = NextEventFlag;
         NextEventFlag = false;
-        if (EventID == -1) return -1;
+        if (EventID == -1)
+        {
+            MessageCanvasControl();
+            MessageCanvas.SetActive(false);
+            return -1;
+        }
         EventData GetEvent = Events.EventList.Find (x => x.EventID == EventID);
         int nextEvent;
+        if(EventID < -1)
+        {
+            nextx = GetEvent.Nextx;
+            ChangeScene(GetEvent.NextScene);
+            return -1;
+        }
         if (correct) {
-            Audio.PlayOneShot (SE);
+            if(!slot && !GetEvent.Reinteractable) Audio.PlayOneShot (SE);
             if (!GetEvent.Reinteractable) {
                 GetEvent.Interactable = false;
                 Events.EventList[Events.EventList.FindIndex (x => x.EventID == EventID)] = GetEvent;
-                nextEvent = -1;
-            } else {
-                nextEvent = GetEvent.EventIDAfterInteract;
             }
+            nextEvent = GetEvent.EventIDAfterInteract;
             for (int i = 0; i < GetEvent.ItemAmount; i++) {
                 ItemAmount[GetEvent.ItemID[i]]++;
             }
@@ -451,14 +456,31 @@ public class GameController : MonoBehaviour {
                     NextEvent = GetEvent.NextEvent;
                 }
             }
-            EventTriggered[GetEvent.EventID] = true;
-            ShowMessage (GetEvent.Message, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
+            if(GetEvent.EventID >= 0) EventTriggered[GetEvent.EventID] = true;
+            if(GetEvent.Message != null) ShowMessage (GetEvent.Message, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
         } else {
             ShowMessage (GetEvent.Message2, GetEvent.SelectionMessage, GetEvent.EventAfterSlection);
             nextEvent = -1;
         }
         CurrentPlayer.GetComponent<PlayerController> ().Event = false;
         return nextEvent;
+    }
+    void SilentTrigger()
+    {
+        GameObject[] EventItems = GameObject.FindGameObjectsWithTag("EventItem");
+        for(int i = 0; i < EventItems.Length; i++)
+        {
+            int ID = EventItems[i].GetComponent<EventController>().EventID;
+            if (ID < 0) continue;
+            if (EventTriggered[ID])
+            {
+                EventData GetEvent = Events.EventList.Find(x => x.EventID == ID);
+                if (GetEvent.EventIDAfterInteract != -1)
+                {
+                    EventItems[i].GetComponent<EventController>().EventID = GetEvent.EventIDAfterInteract;
+                }
+            }
+        }
     }
     public bool EventExecuted (int EventID) {
         if (EventID == -1) return true;
@@ -504,13 +526,14 @@ public class GameController : MonoBehaviour {
 
         MessageText.GetComponent<RectTransform> ().offsetMin = new Vector2 (0, 0);
         MessageText.GetComponent<RectTransform> ().offsetMax = new Vector2 (0, 0);
-        if (MessageNow != MessageNumber) {
+        if (MessageNow != MessageNumber && MessageNumber != 0) {
             MessageText.GetComponent<TMPro.TextMeshProUGUI> ().text = MessageArray[MessageNow];
             if (MessageNow == MessageNumber - 1 && SelectionFlag) {
                 float smallWidth = width * 8;
                 float smallHeight = height * 2.5f;
                 float selectionWidth = smallWidth / 20;
                 float interval = (smallWidth - selectionWidth * TotalSelections) / (TotalSelections + 1);
+                Selections.Clear();
                 for (int i = 0; i < TotalSelections; i++) {
                     if (i >= Selections.Count) {
                         GameObject newSelection = Instantiate (SelectionButton, MessageBackground.transform);
@@ -537,6 +560,14 @@ public class GameController : MonoBehaviour {
     }
     public void ShowMessage (string[] Message, string[] Selection, int[] NextEvents) {
         MessageArray.Clear ();
+        if (Message.Length == 0)
+        {
+            if (NextEventFlag)
+            {
+                EventTrigger(NextEvent, true);
+            }
+            return;
+        }
         for (int i = 0; i < Message.Length; i++) {
             MessageArray.Add (Message[i]);
         }
@@ -556,7 +587,6 @@ public class GameController : MonoBehaviour {
 
     void MessageCanvasControl () {
         if (!MessageFlag) {
-            MessageCanvas.SetActive (true);
             MessageFlag = true;
         } else {
             MessageCanvas.SetActive (false);
@@ -612,8 +642,10 @@ public class GameController : MonoBehaviour {
         SelectedItem = 0;
         ItemPage = 0;
         MessageNow = 0;
+        MessageNumber = 0;
         //LabPageNow = 0;
         SetItemCanvas ();
         SetMessageCanvas ();
+        SilentTrigger();
     }
 }
