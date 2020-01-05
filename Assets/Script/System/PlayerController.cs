@@ -62,6 +62,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(SceneManager.GetActiveScene().buildIndex == 1 ||
+           SceneManager.GetActiveScene().buildIndex == 0 ||
+           SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            Destroy(this.gameObject);
+        }
         if(Input.GetButtonDown("Jump")){
             jump = true;
         }

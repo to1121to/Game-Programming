@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayButton : MonoBehaviour
 {
+    public int id;
     public void OnButtonClick(){
-        SceneManager.LoadScene(2, LoadSceneMode.Single);
+        SceneManager.LoadScene(id, LoadSceneMode.Single);
     }
 }

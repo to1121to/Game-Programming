@@ -11,6 +11,7 @@ public class DoorCoverEffect : MonoBehaviour
     void Start()
     {
         Game = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        gameObject.SetActive(!unlock);
     }
 
     void Update()

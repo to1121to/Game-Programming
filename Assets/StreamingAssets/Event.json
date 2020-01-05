@@ -6,20 +6,15 @@
 			"Reinteractable": false,
 			"EventIDAfterInteract": 2,
 			"Message": [
-				"「得到 “艾娜的工作證”」",
-				"“這樣就可以打開大部分的門了”"
+				"（得到「艾娜的工作證」）",
+				"艾娜：「這樣就可以打開大部分的門了！」"
 			],
 			"Message2": [],
 			"NextEvent": 2,
-			"SelectionOrNot": false,
-			"SelectionMessage": [],
+			"SelectionOrNot": false, "SelectionMessage": [],
 			"EventAfterSlection": [],
-			"ItemAmount": 1,
-			"ItemID": [
-				0
-			],
-			"LabAmount": 0,
-			"LabID": []
+			"ItemAmount": 1, "ItemID": [0],
+			"LabAmount": 0, "LabID": []
 		},
 		{
 			"EventID": 1,
@@ -27,26 +22,17 @@
 			"Reinteractable": false,
 			"EventIDAfterInteract": -1,
 			"Message": [
-				"“先把我的研究資料帶著好了。”",
-				"「得到 “研究資料的資料夾”」",
-				"已可開啟研究資料查看。",
-				"「得到 “AL-251 黏膠”」",
-				"「得到 “AL-032 永生樹”」"
+				"艾娜：「先把我的研究資料帶著好了。」",
+				"（得到「研究資料的資料夾」）",
+				"（得到「研究資料：AL-251 黏膠」）",
+				"（得到「研究資料：AL-032 永生樹」）"
 			],
 			"Message2": [],
 			"NextEvent": -1,
-			"SelectionOrNot": false,
-			"SelectionMessage": [],
+			"SelectionOrNot": false, "SelectionMessage": [],
 			"EventAfterSlection": [],
-			"ItemAmount": 1,
-			"ItemID": [
-				1
-			],
-			"LabAmount": 2,
-			"LabID": [
-				0,
-				1
-			]
+			"ItemAmount": 1, "ItemID": [1],
+			"LabAmount": 2, "LabID": [0, 1]
 		},
 		{
 			"EventID": 2,
@@ -54,21 +40,18 @@
 			"Reinteractable": false,
 			"EventIDAfterInteract": -1,
 			"Message": [
-				"『【緊急通知】(一天前)",
-				"致全體員工，由於實驗編號1543號的失敗，導致KL-403的逃出。",
+				"【緊急通知】（一天前）",
+				"『致全體員工，由於實驗編號1543號的失敗，導致KL-403的逃出。",
 				"目前已封鎖C區3樓，且陸續接獲C區實驗品逃出的訊息，請C區全體人員立即撤出，我們將於10分鐘後封鎖該區域。",
 				"也煩請其餘區域的人員迅速收拾物品與資料，逃生船將於一小時後出發，逾時不候。』",
-				"“…….一天前？我睡了那麼久？這樣我是不是被困在這裡了……？”"
+				"艾娜：「……？一天前？我睡了那麼久？這樣我是不是被困在這裡了……？」"
 			],
 			"Message2": [],
 			"NextEvent": -1,
-			"SelectionOrNot": false,
-			"SelectionMessage": [],
+			"SelectionOrNot": false, "SelectionMessage": [],
 			"EventAfterSlection": [],
-			"ItemAmount": 0,
-			"ItemID": [],
-			"LabAmount": 0,
-			"LabID": []
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
 		},
 		{
 			"EventID": 3,
@@ -76,20 +59,17 @@
 			"Reinteractable": false,
 			"EventIDAfterInteract": 4,
 			"Message": [
-				"“門打開了。”"
+				"（門打開了。）"
 			],
 			"Message2": [
-				"“我的工作證呢？出入辦公室都需要工作證的……”",
-				"“得先找到工作證。”"
+				"艾娜：「我的工作證呢？出入辦公室都需要工作證的……」",
+				"艾娜：「得先找到工作證。」"
 			],
 			"NextEvent": 4,
-			"SelectionOrNot": false,
-			"SelectionMessage": [],
+			"SelectionOrNot": false, "SelectionMessage": [],
 			"EventAfterSlection": [],
-			"ItemAmount": 0,
-			"ItemID": [],
-			"LabAmount": 0,
-			"LabID": []
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
 		},
 		{
 			"EventID": 4,
@@ -97,53 +77,344 @@
 			"Reinteractable": true,
 			"EventIDAfterInteract": -1,
 			"Message": [
-				"要出房間嗎？"
+				"（要出房間？）"
 			],
 			"Message2": [],
 			"NextEvent": -1,
-			"SelectionOrNot": true,
-			"SelectionMessage": [
-				"是",
-				"否"
-			],
-			"EventAfterSlection": [
-				-2,
-				-1
-			],
-			"ItemAmount": 0,
-			"ItemID": [],
-			"LabAmount": 0,
-			"LabID": []
+			"SelectionOrNot": true, "SelectionMessage": ["是", "否"],
+			"EventAfterSlection": [-2, -1],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
 		},
 		{
 			"EventID": -2,
 			"Interactable": false,
 			"NextScene": "Corridor",
-			"Nextx": 2.61,
+			"Nextx": -3.39,
 			"Nexty": -2
 		},
 		{
 			"EventID": 5,
-			"Interactable": true,
-			"Reinteractable": true,
-			"EventIDAfterInteract": -1,
-			"Message": [],
+			"Interactable": true, 
+			"Reinteractable": true, 
+			"EventIDAfterInteract": -1, 
+			"Message": [], 
 			"Message2": [],
-			"NextEvent": -3,
-			"SelectionOrNot": false,
-			"SelectionMessage": [],
-			"EventAfterSlection": [],
-			"ItemAmount": 0,
-			"ItemID": [],
-			"LabAmount": 0,
-			"LabID": []
+			"NextEvent": -3, 
+			"SelectionOrNot": false, "SelectionMessage": [], 
+			"EventAfterSlection": [], 
+			"ItemAmount": 0, "ItemID": [], 
+			"LabAmount": 0, "LabID": []
 		},
 		{
 			"EventID": -3,
 			"Interactable": false,
 			"NextScene": "AmaRoom",
-			"Nextx": -4.65,
+			"Nextx": -4.53,
 			"Nexty": -2
+		},
+		{
+			"EventID": 6,
+			"Interactable": true, 
+			"Reinteractable": true, 
+			"EventIDAfterInteract": -1, 
+			"Message": [], 
+			"Message2": [],
+			"NextEvent": -4, 
+			"SelectionOrNot": false, "SelectionMessage": [], 
+			"EventAfterSlection": [], 
+			"ItemAmount": 0, "ItemID": [], 
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -4,
+			"Interactable": false,
+			"NextScene": "DirectorRoom",
+			"Nextx": 5.91,
+			"Nexty": -2
+		},
+		{
+			"EventID": 7,
+			"Interactable": true, 
+			"Reinteractable": true, 
+			"EventIDAfterInteract": -1, 
+			"Message": [], 
+			"Message2": [],
+			"NextEvent": -5, 
+			"SelectionOrNot": false, "SelectionMessage": [], 
+			"EventAfterSlection": [], 
+			"ItemAmount": 0, "ItemID": [], 
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -5,
+			"Interactable": false,
+			"NextScene": "Corridor",
+			"Nextx": -8.45,
+			"Nexty": -2
+		},
+		{
+			"EventID": 8,
+			"Interactable": true, 
+			"Reinteractable": true, 
+			"EventIDAfterInteract": -1, 
+			"Message": [
+				"艾娜：「這裡好像是倉庫……」",
+				"（要進倉庫？）"
+			],
+			"Message2": [],
+			"NextEvent": -1,
+			"SelectionOrNot": true, "SelectionMessage": ["是", "否"],
+			"EventAfterSlection": [-6, -1], 
+			"ItemAmount": 0, "ItemID": [], 
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -6,
+			"Interactable": false,
+			"NextScene": "Warehouse",
+			"Nextx": 5.91,
+			"Nexty": -2
+		},
+		{
+			"EventID": 9,
+			"Interactable": true, 
+			"Reinteractable": true, 
+			"EventIDAfterInteract": -1, 
+			"Message": [], 
+			"Message2": [],
+			"NextEvent": -7, 
+			"SelectionOrNot": false, "SelectionMessage": [], 
+			"EventAfterSlection": [], 
+			"ItemAmount": 0, "ItemID": [], 
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -7,
+			"Interactable": false,
+			"NextScene": "Corridor",
+			"Nextx": 2.71,
+			"Nexty": -2
+		},
+		{
+			"EventID": 10,
+			"Interactable": true, 
+			"Reinteractable": true, 
+			"EventIDAfterInteract": -1, 
+			"Message": [], 
+			"Message2": [],
+			"NextEvent": -7, 
+			"SelectionOrNot": false, "SelectionMessage": [], 
+			"EventAfterSlection": [], 
+			"ItemAmount": 0, "ItemID": [], 
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -7,
+			"Interactable": false,
+			"NextScene": "Corridor",
+			"Nextx": 2.71,
+			"Nexty": -2
+		},
+		{
+			"EventID": 11,
+			"Interactable": true, 
+			"Reinteractable": false, 
+			"EventIDAfterInteract": -1, 
+			"Message": [
+				"艾娜：「阿，這個是……」",
+				"（得到「圖書館的鑰匙」）"
+			], 
+			"Message2": [],
+			"NextEvent": -1, 
+			"SelectionOrNot": false, "SelectionMessage": [], 
+			"EventAfterSlection": [], 
+			"ItemAmount": 1, "ItemID": [2], 
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": 12,
+			"Interactable": true,
+			"Reinteractable": false,
+			"EventIDAfterInteract": -1,
+			"Message": [
+				"（門打開了。）"
+			],
+			"Message2": [
+				"艾娜：「嗯？圖書館的門從外面反鎖了。」",
+				"艾娜：「我從來沒有看主任鎖過這道門，難道鑰匙在主任身上？」",
+				"艾娜：「這樣要怎麼出去呢？」"
+			],
+			"NextEvent": -8,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -8,
+			"Interactable": false,
+			"NextScene": "Library",
+			"Nextx": -13.35,
+			"Nexty": 5.26
+		},
+		{
+			"EventID": 13,
+			"Interactable": true,
+			"Reinteractable": false,
+			"EventIDAfterInteract": -1,
+			"Message": [
+				"艾娜：「！」",
+				"？？？：「o！哈囉！我為以員研究跑光。s還被落下妳？」",
+				"艾娜：「……唔。」",
+				"？？？：「害怕別。位這s姐，們我見過的之前，在實驗s。",
+				"艾娜：「可是我不記得有你這樣的…生物？」",
+				"弗萊：「當這然也，我時過不s隻蒼蠅普通的。妳可以叫我弗萊，雖這裡然算s地盤我的，但我像妳樣的客人滿也歡迎。」",
+				"弗萊：「有可以問題再問我，我續繼先書看了。"
+			],
+			"Message2": [],
+			"NextEvent": -1,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": 14,
+			"Interactable": true,
+			"Reinteractable": false,
+			"EventIDAfterInteract": -1,
+			"Message": [
+				"弗萊：「果如妳想到其他地的話可得點小心，並不s生物每個都像我善友、有沒地盤意識的。」",
+				"弗萊：「我還不太會s用人類的語言……」",
+				"弗萊：「但書這裡的種多類，也許對我助有協。」",
+				"弗萊：「恩……？」",
+				"弗萊：「妳s這區的書都s的撰杜？s然有描寫部分s真實不太，但這種我們s物也確s存在s於。」"
+			],
+			"Message2": [],
+			"NextEvent": -1,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": 15,
+			"Interactable": true,
+			"Reinteractable": false,
+			"EventIDAfterInteract": -1,
+			"Message": [
+				"艾娜：「……這個味道。」",
+				"（惡臭阻擋了去路。）"
+			],
+			"Message2": [],
+			"NextEvent": -9,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -9,
+			"Interactable": false,
+			"NextScene": "Library",
+			"Nextx": 7.4,
+			"Nexty": -9.6
+		},
+		{
+			"EventID": 16,
+			"Interactable": true,
+			"Reinteractable": false,
+			"EventIDAfterInteract": -1,
+			"Message": [
+				"艾娜：「這把是實驗室的鑰匙。」",
+				"（得到了「實驗室的鑰匙」）"
+			],
+			"Message2": [],
+			"NextEvent": -1,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 1, "ItemID": [3],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": 17,
+			"Interactable": true,
+			"Reinteractable": false,
+			"EventIDAfterInteract": -1,
+			"Message": [
+				"（門打開了）"
+			],
+			"Message2": [
+				"艾娜：「……這邊通往實驗室，需要實驗室的鑰匙。」"
+			],
+			"NextEvent": 18,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": 18,
+			"Interactable": true,
+			"Reinteractable": true,
+			"EventIDAfterInteract": -1,
+			"Message": [],
+			"Message2": [],
+			"NextEvent": -10,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -10,
+			"Interactable": false,
+			"NextScene": "Lab",
+			"Nextx": 7.9,
+			"Nexty": 4.0
+		},
+		{
+			"EventID": 19,
+			"Interactable": true,
+			"Reinteractable": true,
+			"EventIDAfterInteract": -1,
+			"Message": [],
+			"Message2": [],
+			"NextEvent": -11,
+			"SelectionOrNot": false, "SelectionMessage": [],
+			"EventAfterSlection": [],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -11,
+			"Interactable": false,
+			"NextScene": "Library",
+			"Nextx": -12.95,
+			"Nexty": -9.6
+		},
+		{
+			"EventID": 20,
+			"Interactable": true,
+			"Reinteractable": true,
+			"EventIDAfterInteract": -1,
+			"Message": [
+				"是否啟動緊急逃生裝置"
+			],
+			"Message2": [],
+			"NextEvent": -1,
+			"SelectionOrNot": true, "SelectionMessage": ["是", "否"],
+			"EventAfterSlection": [-12, -1],
+			"ItemAmount": 0, "ItemID": [],
+			"LabAmount": 0, "LabID": []
+		},
+		{
+			"EventID": -12,
+			"Interactabl": false,
+			"NextScene": "Finish",
+			"Nextx": 0,
+			"Nexty": 0
 		}
 	]
 }

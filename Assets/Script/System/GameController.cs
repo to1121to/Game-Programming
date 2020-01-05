@@ -115,7 +115,7 @@ public class GameController : MonoBehaviour {
     ItemArray Items;
     LabArray Labs;
 
-    readonly int EventClass = 8; //總共event種類
+    readonly int EventClass = 22; //總共event種類
     List<bool> EventTriggered; //event是否已被觸發
     readonly int ItemClass = 8; //總共item種類
     List<int> ItemAmount; //item數量
@@ -208,6 +208,12 @@ public class GameController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if(SceneManager.GetActiveScene().buildIndex == 1 ||
+           SceneManager.GetActiveScene().buildIndex == 0 ||
+           SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            Destroy(this.gameObject);
+        }
         if (Input.GetButtonDown ("OpenItem") && !SceneChangeAnimationFlag2 && !MessageFlag) {
             if (!ItemFlag) {
                 ItemCanvas.SetActive (true);

@@ -11,6 +11,18 @@
       "ItemIcon": "Icon/Item/icon_folder",
       "ItemName": "研究資料的資料夾",
       "ItemInfo": "可以用來管理研究資料的資料夾"
+    },
+    {
+      "ItemID": 2,
+      "ItemIcon": "Icon/Item/icon_libary_key",
+      "ItemName": "圖書館的鑰匙",
+      "ItemInfo": "通常由主任保管的鑰匙。由於通往圖書館的門通常不會上鎖，所以很少看到主任拿出來。"
+    },
+    {
+      "ItemID": 3,
+      "ItemIcon": "Icon/Item/icon_lab_key",
+      "ItemName": "實驗室的鑰匙",
+      "ItemInfo": "通往地下實驗室的鑰匙。"
     }
   ]
 }

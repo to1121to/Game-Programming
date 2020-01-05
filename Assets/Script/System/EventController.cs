@@ -10,6 +10,7 @@ public class EventController : MonoBehaviour
     bool Interactable;
     bool Trigger;
     public bool delect;
+    public bool touchDirect;
     public int neededItem = -1;
     GameController Game;
     private void Start()
@@ -20,7 +21,7 @@ public class EventController : MonoBehaviour
     private void Update()
     {
         Interactable = Game.Interactable(EventID);
-        if (Input.GetButtonDown("Interact") && Trigger)
+        if ((Input.GetButtonDown("Interact") || touchDirect) && Trigger)
         {
             if (Interactable)
             {
