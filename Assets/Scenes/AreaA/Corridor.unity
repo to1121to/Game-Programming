@@ -988,6 +988,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
+      objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1281,6 +1286,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
+      objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1345,6 +1355,11 @@ PrefabInstance:
         type: 3}
       propertyPath: neededItem
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580374216371030659, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: delect
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5625446066140364584, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
@@ -2800,6 +2815,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
+      objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3610,6 +3630,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 255355109171953578, guid: 418d490f320a5714fa0c129f10f5faa3,
+        type: 3}
+      propertyPath: m_TagString
+      value: EventItem
       objectReference: {fileID: 0}
     - target: {fileID: 255355109171953580, guid: 418d490f320a5714fa0c129f10f5faa3,
         type: 3}

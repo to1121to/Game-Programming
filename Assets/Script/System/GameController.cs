@@ -420,8 +420,14 @@ public class GameController : MonoBehaviour {
         return (ItemAmount[ItemID] > 0);
     }
     public int EventTrigger (int EventID, bool correct) {
+        bool slot = NextEventFlag;
         NextEventFlag = false;
-        if (EventID == -1) return -1;
+        if (EventID == -1)
+        {
+            MessageCanvasControl();
+            MessageCanvas.SetActive(false);
+            return -1;
+        }
         EventData GetEvent = Events.EventList.Find (x => x.EventID == EventID);
         int nextEvent;
         if(EventID < -1)
@@ -431,14 +437,12 @@ public class GameController : MonoBehaviour {
             return -1;
         }
         if (correct) {
-            Audio.PlayOneShot (SE);
+            if(!slot && !GetEvent.Reinteractable) Audio.PlayOneShot (SE);
             if (!GetEvent.Reinteractable) {
                 GetEvent.Interactable = false;
                 Events.EventList[Events.EventList.FindIndex (x => x.EventID == EventID)] = GetEvent;
-                nextEvent = -1;
-            } else {
-                nextEvent = GetEvent.EventIDAfterInteract;
             }
+            nextEvent = GetEvent.EventIDAfterInteract;
             for (int i = 0; i < GetEvent.ItemAmount; i++) {
                 ItemAmount[GetEvent.ItemID[i]]++;
             }
@@ -460,6 +464,23 @@ public class GameController : MonoBehaviour {
         }
         CurrentPlayer.GetComponent<PlayerController> ().Event = false;
         return nextEvent;
+    }
+    void SilentTrigger()
+    {
+        GameObject[] EventItems = GameObject.FindGameObjectsWithTag("EventItem");
+        for(int i = 0; i < EventItems.Length; i++)
+        {
+            int ID = EventItems[i].GetComponent<EventController>().EventID;
+            if (ID < 0) continue;
+            if (EventTriggered[ID])
+            {
+                EventData GetEvent = Events.EventList.Find(x => x.EventID == ID);
+                if (GetEvent.EventIDAfterInteract != -1)
+                {
+                    EventItems[i].GetComponent<EventController>().EventID = GetEvent.EventIDAfterInteract;
+                }
+            }
+        }
     }
     public bool EventExecuted (int EventID) {
         if (EventID == -1) return true;
@@ -512,6 +533,7 @@ public class GameController : MonoBehaviour {
                 float smallHeight = height * 2.5f;
                 float selectionWidth = smallWidth / 20;
                 float interval = (smallWidth - selectionWidth * TotalSelections) / (TotalSelections + 1);
+                Selections.Clear();
                 for (int i = 0; i < TotalSelections; i++) {
                     if (i >= Selections.Count) {
                         GameObject newSelection = Instantiate (SelectionButton, MessageBackground.transform);
@@ -624,5 +646,6 @@ public class GameController : MonoBehaviour {
         //LabPageNow = 0;
         SetItemCanvas ();
         SetMessageCanvas ();
+        SilentTrigger();
     }
 }
